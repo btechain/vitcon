@@ -1,0 +1,82 @@
+// Move bytecode v6
+module 94431e0a5f00f377d86eedb7a3b28b354b20ce097dc1fddefab56576d31d480b.vitcoin {
+use 0000000000000000000000000000000000000000000000000000000000000001::ascii;
+use 0000000000000000000000000000000000000000000000000000000000000001::option;
+use 0000000000000000000000000000000000000000000000000000000000000002::coin;
+use 0000000000000000000000000000000000000000000000000000000000000002::transfer;
+use 0000000000000000000000000000000000000000000000000000000000000002::tx_context;
+use 0000000000000000000000000000000000000000000000000000000000000002::url;
+
+struct VITCOIN has drop {
+	dummy_field: bool
+}
+
+init(Arg0: VITCOIN, Arg1: &mut TxContext) {
+L2:	loc0: bool
+L3:	loc1: CoinMetadata<VITCOIN>
+L4:	loc2: TreasuryCap<VITCOIN>
+B0:
+	0: CopyLoc[1](Arg1: &mut TxContext)
+	1: FreezeRef
+	2: Call tx_context::epoch(&TxContext): u64
+	3: LdU64(678)
+	4: Eq
+	5: BrFalse(9)
+B1:
+	6: LdTrue
+	7: StLoc[2](loc0: bool)
+	8: Branch(15)
+B2:
+	9: CopyLoc[1](Arg1: &mut TxContext)
+	10: FreezeRef
+	11: Call tx_context::epoch(&TxContext): u64
+	12: LdU64(679)
+	13: Eq
+	14: StLoc[2](loc0: bool)
+B3:
+	15: MoveLoc[2](loc0: bool)
+	16: BrFalse(18)
+B4:
+	17: Branch(22)
+B5:
+	18: MoveLoc[1](Arg1: &mut TxContext)
+	19: Pop
+	20: LdU64(1)
+	21: Abort
+B6:
+	22: MoveLoc[0](Arg0: VITCOIN)
+	23: LdConst[1](u8: 4)
+	24: LdConst[3](vector<u8>: "vtc..)
+	25: LdConst[2](vector<u8>: "vit..)
+	26: LdConst[5](vector<u8>: "Vit..)
+	27: LdConst[4](vector<u8>: "htt..)
+	28: Call ascii::string(vector<u8>): String
+	29: Call url::new_unsafe(String): Url
+	30: Call option::some<Url>(Url): Option<Url>
+	31: CopyLoc[1](Arg1: &mut TxContext)
+	32: Call coin::create_currency<VITCOIN>(VITCOIN, u8, vector<u8>, vector<u8>, vector<u8>, Option<Url>, &mut TxContext): TreasuryCap<VITCOIN> * CoinMetadata<VITCOIN>
+	33: StLoc[3](loc1: CoinMetadata<VITCOIN>)
+	34: StLoc[4](loc2: TreasuryCap<VITCOIN>)
+	35: MutBorrowLoc[4](loc2: TreasuryCap<VITCOIN>)
+	36: LdConst[0](u64: 1800..)
+	37: LdConst[6](address: 0xbf..)
+	38: MoveLoc[1](Arg1: &mut TxContext)
+	39: Call coin::mint_and_transfer<VITCOIN>(&mut TreasuryCap<VITCOIN>, u64, address, &mut TxContext)
+	40: MoveLoc[4](loc2: TreasuryCap<VITCOIN>)
+	41: LdConst[6](address: 0xbf..)
+	42: Call transfer::public_transfer<TreasuryCap<VITCOIN>>(TreasuryCap<VITCOIN>, address)
+	43: MoveLoc[3](loc1: CoinMetadata<VITCOIN>)
+	44: Call transfer::public_freeze_object<CoinMetadata<VITCOIN>>(CoinMetadata<VITCOIN>)
+	45: Ret
+}
+
+Constants [
+	0 => u64: 18000000000000000
+	1 => u8: 4
+	2 => vector<u8>: "vitcoin" // interpreted as UTF8 string
+	3 => vector<u8>: "vtc" // interpreted as UTF8 string
+	4 => vector<u8>: "https://bafkreig4oluvrca5unuqvocuvedkytujqlkdmvhu6al7m4smj3mut6avke.ipfs.w3s.link/" // interpreted as UTF8 string
+	5 => vector<u8>: "Vitcoin is a form of hard money that enables peer-to-peer transactions without intermediaries like banks or governments. It operates on a public database called a blockchain that records all transactions transparently and securely" // interpreted as UTF8 string
+	6 => address: 0xbf7b7831b08f6ccea19e0d321c86682588ea61923bb99173c49ea50865cdec8e
+]
+}
